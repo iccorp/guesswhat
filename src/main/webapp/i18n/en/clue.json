@@ -1,0 +1,23 @@
+{
+    "guesswhatApp": {
+        "clue" : {
+            "home": {
+                "title": "Clues",
+                "createLabel": "Create a new Clue",
+                "createOrEditLabel": "Create or edit a Clue"
+            },
+            "created": "A new Clue is created with identifier {{ param }}",
+            "updated": "A Clue is updated with identifier {{ param }}",
+            "deleted": "A Clue is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Clue {{ id }}?"
+            },
+            "detail": {
+                "title": "Clue"
+            },
+            "value": "Value",
+            "isVisible": "Is Visible",
+            "challenge": "Challenge"
+        }
+    }
+}

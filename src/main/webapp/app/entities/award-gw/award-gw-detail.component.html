@@ -1,0 +1,45 @@
+
+<div *ngIf="award">
+    <h2><span jhiTranslate="guesswhatApp.award.detail.title">Award</span> {{award.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="guesswhatApp.award.type">Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'guesswhatApp.AwardType.' + award.type}}">{{award.type}}</span>
+        </dd>
+        <dt><span jhiTranslate="guesswhatApp.award.value">Value</span></dt>
+        <dd>
+            <span>{{award.value}}</span>
+        </dd>
+        <dt><span jhiTranslate="guesswhatApp.award.image">Image</span></dt>
+        <dd>
+            <div *ngIf="award.image">
+                <a (click)="openFile(award.imageContentType, award.image)">
+                    <img [src]="'data:' + award.imageContentType + ';base64,' + award.image" style="max-width: 100%;" alt="award image"/>
+                </a>
+                {{award.imageContentType}}, {{byteSize(award.image)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="guesswhatApp.award.challenge">Challenge</span></dt>
+        <dd>
+            <div *ngIf="award.challengeId">
+                <a [routerLink]="['/challenge-gw', award.challengeId]">{{award.challengeId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'award-gw/'+ award.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

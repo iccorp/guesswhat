@@ -1,0 +1,61 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAwardLabel" jhiTranslate="guesswhatApp.award.home.createOrEditLabel">Create or edit a Award</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!award.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="award.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="guesswhatApp.award.type" for="field_type">Type</label>
+            <select class="form-control" name="type" [(ngModel)]="award.type" id="field_type" >
+                <option value="TEXT">{{'guesswhatApp.AwardType.TEXT' | translate}}</option>
+                <option value="IMAGE">{{'guesswhatApp.AwardType.IMAGE' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="guesswhatApp.award.value" for="field_value">Value</label>
+            <input type="text" class="form-control" name="value" id="field_value"
+                [(ngModel)]="award.value" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="guesswhatApp.award.image" for="field_image">Image</label>
+            <div>
+                <img [src]="'data:' + award.imageContentType + ';base64,' + award.image" style="max-height: 100px;" *ngIf="award.image" alt="award image"/>
+                <div *ngIf="award.image" class="form-text text-danger clearfix">
+                    <span class="pull-left">{{award.imageContentType}}, {{byteSize(award.image)}}</span>
+                    <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_image" (change)="setFileData($event, award, 'image', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+            </div>
+            <input type="hidden" class="form-control" name="image" id="field_image"
+                [(ngModel)]="award.image" />
+            <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                [(ngModel)]="award.imageContentType" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="guesswhatApp.award.challenge" for="field_challenge">Challenge</label>
+            <select class="form-control" id="field_challenge" name="challenge" [(ngModel)]="award.challengeId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="challengeOption.id" *ngFor="let challengeOption of challenges; trackBy: trackChallengeById">{{challengeOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

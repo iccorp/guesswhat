@@ -1,0 +1,23 @@
+{
+    "guesswhatApp": {
+        "clue" : {
+            "home": {
+                "title": "Clues",
+                "createLabel": "Créer un nouveau Clue",
+                "createOrEditLabel": "Créer ou éditer un Clue"
+            },
+            "created": "Un nouveau Clue a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Clue avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Clue avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Clue {{ id }} ?"
+            },
+            "detail": {
+                "title": "Clue"
+            },
+            "value": "Value",
+            "isVisible": "Is Visible",
+            "challenge": "Challenge"
+        }
+    }
+}

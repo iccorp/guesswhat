@@ -1,0 +1,40 @@
+
+<div *ngIf="challenge">
+    <h2><span jhiTranslate="guesswhatApp.challenge.detail.title">Challenge</span> {{challenge.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="guesswhatApp.challenge.name">Name</span></dt>
+        <dd>
+            <span>{{challenge.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="guesswhatApp.challenge.question">Question</span></dt>
+        <dd>
+            <span>{{challenge.question}}</span>
+        </dd>
+        <dt><span jhiTranslate="guesswhatApp.challenge.user">User</span></dt>
+        <dd>
+            {{challenge.userId}}
+        </dd>
+        <dt><span jhiTranslate="guesswhatApp.challenge.category">Category</span></dt>
+        <dd>
+            <span *ngFor="let category of challenge.categories; let last = last">
+                <a [routerLink]="['/category-gw', category?.id ]">{{category.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'challenge-gw/'+ challenge.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

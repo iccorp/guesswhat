@@ -1,0 +1,73 @@
+<div>
+    <h2>
+        <span jhiTranslate="guesswhatApp.award.home.title">Awards</span>
+        <button class="btn btn-primary float-right jh-create-entity create-award-gw" [routerLink]="['/', { outlets: { popup: ['award-gw-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="guesswhatApp.award.home.createLabel">
+            Create new Award
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="awards">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="guesswhatApp.award.type">Type</span></th>
+            <th><span jhiTranslate="guesswhatApp.award.value">Value</span></th>
+            <th><span jhiTranslate="guesswhatApp.award.image">Image</span></th>
+            <th><span jhiTranslate="guesswhatApp.award.challenge">Challenge</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let award of awards ;trackBy: trackId">
+                <td><a [routerLink]="['../award-gw', award.id ]">{{award.id}}</a></td>
+                <td jhiTranslate="{{'guesswhatApp.AwardType.' + award.type}}">{{award.type}}</td>
+                <td>{{award.value}}</td>
+                <td>
+                    <a *ngIf="award.image" (click)="openFile(award.imageContentType, award.image)">
+                        <img [src]="'data:' + award.imageContentType + ';base64,' + award.image" style="max-height: 30px;" alt="award image"/>
+                    </a>
+                    <span *ngIf="award.image">{{award.imageContentType}}, {{byteSize(award.image)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="award.challengeId">
+                        <a [routerLink]="['../challenge-gw', award.challengeId  ]" >{{award.challengeId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../award-gw', award.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'award-gw/'+ award.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'award-gw/'+ award.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

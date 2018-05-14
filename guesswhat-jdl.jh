@@ -1,0 +1,68 @@
+entity Challenge {
+	name String,
+    question String,
+}
+
+entity User {
+    pseudo String,
+    name String,
+    surname String,
+    mail String,
+    password String,
+    photo String
+}
+
+entity Category {
+    value String
+}
+
+entity Clue {
+    value String,
+    isVisible Boolean
+}
+
+entity Answer {
+    value String
+}
+
+entity Attempt {
+    value String,
+    isOk Boolean
+}
+
+
+// an ignored comment
+/** not an ignored comment */
+entity Award {
+	type AwardType,
+    value String,
+	image ImageBlob
+}
+
+enum AwardType {
+    TEXT, IMAGE
+}
+
+relationship ManyToMany {
+	Challenge{category} to Category{challenge}
+}
+
+relationship ManyToOne {
+	Challenge {user} to User,
+	Clue {challenge} to Challenge,
+    Answer {challenge} to Challenge,
+	Attempt {challenge} to Challenge,
+	Award {challenge} to Challenge,
+    Attempt {user} to User
+}
+
+// Set pagination options
+paginate Challenge with infinite-scroll
+paginate Challenge with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with gw

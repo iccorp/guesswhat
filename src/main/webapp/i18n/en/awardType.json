@@ -1,0 +1,9 @@
+{
+    "guesswhatApp": {
+        "AwardType" : {
+            "null": "",
+            "TEXT": "TEXT",
+            "IMAGE": "IMAGE"
+        }
+    }
+}

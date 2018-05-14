@@ -1,0 +1,70 @@
+<div>
+    <h2>
+        <span jhiTranslate="guesswhatApp.attempt.home.title">Attempts</span>
+        <button class="btn btn-primary float-right jh-create-entity create-attempt-gw" [routerLink]="['/', { outlets: { popup: ['attempt-gw-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="guesswhatApp.attempt.home.createLabel">
+            Create new Attempt
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="attempts">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="guesswhatApp.attempt.value">Value</span></th>
+            <th><span jhiTranslate="guesswhatApp.attempt.isOk">Is Ok</span></th>
+            <th><span jhiTranslate="guesswhatApp.attempt.challenge">Challenge</span></th>
+            <th><span jhiTranslate="guesswhatApp.attempt.user">User</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let attempt of attempts ;trackBy: trackId">
+                <td><a [routerLink]="['../attempt-gw', attempt.id ]">{{attempt.id}}</a></td>
+                <td>{{attempt.value}}</td>
+                <td>{{attempt.isOk}}</td>
+                <td>
+                    <div *ngIf="attempt.challengeId">
+                        <a [routerLink]="['../challenge-gw', attempt.challengeId  ]" >{{attempt.challengeId}}</a>
+                    </div>
+                </td>
+                <td>
+                    {{attempt.userId}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../attempt-gw', attempt.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'attempt-gw/'+ attempt.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'attempt-gw/'+ attempt.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
